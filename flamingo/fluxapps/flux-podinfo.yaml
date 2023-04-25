@@ -8,11 +8,11 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: podinfo
-      version: "6.3.5"
+      chart: prometheus
+      version: "20.1.0"
       sourceRef:
         kind: HelmRepository
-        name: podinfo
+        name: prometheus
         namespace: default
       interval: 1m
   test:
