@@ -1,18 +1,9 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
 metadata:
-  name: helm-sample-flux
-  namespace: argocd
+  name: podinfo
+  namespace: default
 spec:
-  project: default
-  source:
-    repoURL: https://github.com/retaildevcrews/argo-labs.git
-    targetRevision: pragmatical/argolabs-start
-    path: flamingo/fluxapps
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: argolabs
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
-      - FluxSubsystem=true
+  type: oci
+  interval: 1m0s
+  url: oci://ghcr.io/stefanprodan/charts/podinfo

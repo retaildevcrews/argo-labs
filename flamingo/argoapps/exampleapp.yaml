@@ -1,24 +1,17 @@
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
-kind: HelmRelease
+apiVersion: argoproj.io/v1alpha1
+kind: Application
 metadata:
-  name: podinfo
-  namespace: default
+  name: helm-sample-flux
+  namespace: argocd
 spec:
-  interval: 5m
-  chart:
-    spec:
-      chart: podinfo
-      version: ">=4.0.0 <5.0.0"
-      sourceRef:
-        kind: HelmRepository
-        name: podinfo
-        namespace: default
-      interval: 1m
-  test:
-    enable: true
-    ignoreFailures: true
-  values:
-    resources:
-      requests:
-        cpu: 100m
-        memory: 64Mi
+  project: default
+  source:
+    repoURL: https://github.com/retaildevcrews/argo-labs.git
+    targetRevision: pragmatical/argolabs-start
+    path: flamingo/fluxapps
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argolabs
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
