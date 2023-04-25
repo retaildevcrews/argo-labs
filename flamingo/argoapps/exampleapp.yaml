@@ -10,7 +10,7 @@ spec:
     targetRevision: pragmatical/argolabs-start
     path: flamingo/fluxapps
   destination:
-    name: workload-cluster-1
+    name: in-cluster
     namespace: argolabs
   syncPolicy:
     syncOptions:
