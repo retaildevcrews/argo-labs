@@ -10,10 +10,8 @@ spec:
     targetRevision: pragmatical/argolabs-start
     path: flamingo/fluxapps
   destination:
-    server: https://host.k3d.internal:46053
+    server: https://kubernetes.default.svc
     namespace: argolabs
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
-      - FluxSubsystem=true
-      - CreateFluxResources=true
