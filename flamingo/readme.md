@@ -66,12 +66,15 @@ During the lab you will:
 
     ``` bash
     flux install
+    kubectl wait pods -n fluxcd --all --for condition=ready --insecure-skip-tls-verify
     ```
 
 5. Bootstrap demo
 
     ``` bash
+    kubectl apply -f helmrepository.yaml
     kubectl apply -f demo-bootstrap.yaml
+    kubectl wait pods -n argocd --all --for condition=ready --insecure-skip-tls-verify
     ```
 
 6. Expose API Server External to Cluster (run this command in a new zsh terminal so port forwarding remains running)

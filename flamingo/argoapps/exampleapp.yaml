@@ -10,7 +10,7 @@ spec:
     targetRevision: pragmatical/argolabs-start
     path: flamingo/fluxapps
   destination:
-    server: https://kubernetes.default.svc
+    name: in-server
     namespace: argolabs
   syncPolicy:
     syncOptions:
