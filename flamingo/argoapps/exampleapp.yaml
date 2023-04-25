@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: guestbook
+  name: helm-sample-flux
   namespace: argocd
 spec:
   project: default
@@ -10,7 +10,7 @@ spec:
     targetRevision: pragmatical/argolabs-start
     path: flamingo/fluxapps
   destination:
-    name: workload-cluster-1
+    server: https://host.k3d.internal:46053
     namespace: argolabs
   syncPolicy:
     syncOptions:
