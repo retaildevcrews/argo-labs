@@ -43,7 +43,7 @@ During the lab you will:
 
 ## Steps
 
-1. Ensure you are executing this lab from the cluster-add-ons/single-app-of-apps-per-cluster directory
+1. Ensure you are executing this lab from the flamingo directory
 
 2. Create k3d Clusters
 
