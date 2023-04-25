@@ -10,7 +10,7 @@ spec:
     targetRevision: pragmatical/argolabs-start
     path: flamingo/fluxapps
   destination:
-    server: https://host.k3d.internal:46053
+    name: workload-cluster-1
     namespace: argolabs
   syncPolicy:
     syncOptions:
