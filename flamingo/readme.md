@@ -52,8 +52,6 @@ During the lab you will:
 
     ``` bash
     k3d cluster create workload-cluster-1 --kubeconfig-update-default=false
-    k3d cluster create workload-cluster-2 --kubeconfig-update-default=false
-    k3d cluster create workload-cluster-3 --kubeconfig-update-default=false
     k3d cluster create argomgmt --kubeconfig-update-default=false
     k3d kubeconfig merge --all -o config-argo
     sed -i'.original' 's/0.0.0.0/host.k3d.internal/g' config-argo
@@ -73,7 +71,13 @@ During the lab you will:
     flux install
     ```
 
-5. Expose API Server External to Cluster (run this command in a new zsh terminal so port forwarding remains running)
+5. Bootstrap demo
+
+    ``` bash
+    kubectl apply -f demo-bootstrap.yaml
+    ```
+
+6. Expose API Server External to Cluster (run this command in a new zsh terminal so port forwarding remains running)
 
     ``` bash
     # Forward port to access UI outside of cluster
@@ -83,7 +87,7 @@ During the lab you will:
 
     After this step is complete go back to original terminal to run the rest of the commands
 
-6. Access UI
+7. Access UI
 
     1. Get initial password
 
@@ -98,63 +102,15 @@ During the lab you will:
     5. Click Update Password Button and change to your password of choice
     6. You will then be logged out, log back in using credentials above
 
-7. Add clusters in Argo
+8. Add clusters in Argo
 
     ``` bash
     #Connect to api server 
     argocd login localhost:8080 --username admin --password <same_password_used_in_ui>
     argocd cluster add k3d-workload-cluster-1 --name workload-cluster-1 --insecure
-    argocd cluster add k3d-workload-cluster-2 --name workload-cluster-2 --insecure
-    argocd cluster add k3d-workload-cluster-3 --name workload-cluster-3 --insecure
     ```
 
-8. Create applicationset to deploy workloads
-
-    ``` bash
-    kubectl apply -f addon_generator.yaml --insecure-skip-tls-verify
-    ```
-
-9. Navigate to UI by going to: <https://localhost:8080> to see applications being deployed
-
-   > **Note**
-   > At this point all applications are being deployed at once, the dependency configured in our sync waves between prometheus and guestbook is not being respected, this is because in ArgoCD 1.8 the health assesment has been removed from argoproj.io/Application CRD, we will patch this in the next step to enable this healthassesment in order for sync waves to work in our app of apps pattern.
-
-10. Delete applicationset
-
-    ``` bash
-    kubectl delete applicationset addons -n argocd --insecure-skip-tls-verify
-    ```
-
-11. Navigate to UI by going to: <https://localhost:8080> to see all applications will be removed
-
-12. Apply patch to enable health assessment requiring app to be healthy in order to proceed with the next sync wave deployment when using app of apps pattern
-
-    ``` bash
-    kubectl -n argocd patch configmaps argocd-cm --patch-file argocd-cm-patch.yaml --insecure-skip-tls-verify
-    #Restart the argocd server to use the patched configmap
-    kubectl delete pods -n argocd -l "app.kubernetes.io/name=argocd-server" --insecure-skip-tls-verify
-    kubectl wait pods -n argocd --all --for condition=ready --insecure-skip-tls-verify
-    ```
-
-    > **Note**
-    > Since we restarted the server, we will need to port forward the server again in our other terminal - this will likely require terminating the process that is forwarding the port orignally
-
-    ``` bash
-    # Forward port to access UI outside of cluster
-    # Ensure you are executing these commands from the spikes/cluster-add-ons/single-app-of-apps-per-cluster directory
-    export KUBECONFIG=config-argo
-    kubectl port-forward svc/argocd-server -n argocd 8080:443
-    ```
-
-13. Rereate applicationset to deploy workloads
-
-    ``` bash
-    kubectl apply -f addon_generator.yaml --insecure-skip-tls-verify
-    ```
-
-14. Navigate to UI by going to: <https://localhost:8080> to see applications being deployed, you will now see guestbook will not be deployed until prometheus is in a healthy state
-
-15. Clean up
+9. Clean up
 
     ``` bash
     k3d cluster delete workload-cluster-1
