@@ -1,4 +1,4 @@
-# Lab: Single App of Apps Per Cluster
+# Lab: Flamingo
 
 ## Introduction
 
@@ -114,8 +114,6 @@ During the lab you will:
 
     ``` bash
     k3d cluster delete workload-cluster-1
-    k3d cluster delete workload-cluster-2
-    k3d cluster delete workload-cluster-3
     k3d cluster delete argomgmt
     unset KUBECONFIG
     rm config-argo
