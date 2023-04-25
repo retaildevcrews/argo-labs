@@ -15,7 +15,7 @@ During the lab you will:
 2. Set up ArgoCD
 3. Deploy an application set that deploys the add-ons to the worker clusters
 
-## Prerequisites
+## Prerequisites (If Running in Codespaces the prerequisites should be installed already in environment)
 
 1. Kubectl - Installation instructions here: <https://kubernetes.io/docs/tasks/tools/>
 2. Argo CLI - Installation instructions here: <https://argo-cd.readthedocs.io/en/stable/cli_installation/>
@@ -67,13 +67,10 @@ During the lab you will:
     kubectl config current-context
     ```
 
-4. Install ArgoCD
+4. Install Flux
 
     ``` bash
-    kubectl create namespace argocd --insecure-skip-tls-verify
-    kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml --insecure-skip-tls-verify
-    # Wait until all pods are showing 1/1 in ready state
-    kubectl wait pods -n argocd --all --for condition=ready --insecure-skip-tls-verify
+    flux install
     ```
 
 5. Expose API Server External to Cluster (run this command in a new zsh terminal so port forwarding remains running)
