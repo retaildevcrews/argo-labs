@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: guestbook
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/retaildevcrews/argolabs.git
+    targetRevision: pragmatical/argolabs-start
+    path: flamingo/fluxapps
+  destination:
+    name: workload-cluster-1
+    namespace: argolabs
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
