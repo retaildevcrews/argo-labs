@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/retaildevcrews/argolabs.git
+    repoURL: https://github.com/retaildevcrews/argo-labs.git
     targetRevision: pragmatical/argolabs-start
     path: flamingo/fluxapps
   destination:
