@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: addons
+  namespace: argocd
+spec:
+  generators:
+      - clusters:
+          selector:
+            matchLabels:
+              argocd.argoproj.io/secret-type: cluster
+  template:
+    metadata:
+      name: '{{name}}-flux'
+      labels:
+       cluster-id: '{{name}}'
+    spec:
+      project: default
+      source:
+        repoURL: 'https://github.com/retaildevcrews/argo-labs.git'
+        path: flamingo/fluxapps
+        targetRevision: pragmatical/argolabs-start
+      destination:
+        name: '{{name}}'
+        namespace: 'argocd'
+      syncPolicy:
+        automated:
+           prune: false
+           selfHeal: true
+        retry:
+          limit: 3
+        syncOptions:      
+        - CreateNamespace=true
