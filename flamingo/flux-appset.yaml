@@ -16,18 +16,17 @@ spec:
        cluster-id: '{{name}}'
     spec:
       project: default
-      source:
-        repoURL: 'https://github.com/retaildevcrews/argo-labs.git'
-        path: flamingo/flux-install
-        targetRevision: pragmatical/argolabs-start
-      destination:
-        name: '{{name}}'
-        namespace: 'argocd'
-      syncPolicy:
-        automated:
-           prune: false
-           selfHeal: true
-        retry:
-          limit: 3
-        syncOptions:      
-        - CreateNamespace=true
+source:
+  repoURL: 'https://github.com/retaildevcrews/argo-labs.git'
+  path: flamingo/flux-install
+  targetRevision: pragmatical/argolabs-start
+  destination:
+    namespace: argocd
+    name: '{{name}}'
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+    retry:
+      limit: 3
