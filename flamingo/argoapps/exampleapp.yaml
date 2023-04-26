@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: helm-sample-flux
   namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
