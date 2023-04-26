@@ -3,17 +3,17 @@ kind: Application
 metadata:
   name: helm-sample-flux
   namespace: argocd
-  annotations:
-    argocd.argoproj.io/sync-options: Validate=false
 spec:
   project: default
-  source:
-    repoURL: https://github.com/retaildevcrews/argo-labs.git
-    targetRevision: pragmatical/argolabs-start
-    path: flamingo/fluxapps
+source:
+  repoURL: 'https://github.com/retaildevcrews/argo-labs.git'
+  path: flamingo/fluxapps
+  targetRevision: pragmatical/argolabs-start
   destination:
-    server: https://host.k3d.internal:42423
     namespace: argolabs
+    name: workload-cluster-1
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
+      - FluxSubsystem=true
+      - AutoCreateFluxResources=true
