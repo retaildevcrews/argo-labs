@@ -11,7 +11,7 @@ spec:
     targetRevision: pragmatical/argolabs-start
   destination:
     namespace: argolabs
-    name: workload-cluster-1
+    name: in-cluster
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
