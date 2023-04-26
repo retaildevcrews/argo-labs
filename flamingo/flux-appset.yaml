@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: addons
+  name: flux-installer
   namespace: argocd
 spec:
   generators:
@@ -18,7 +18,7 @@ spec:
       project: default
       source:
         repoURL: 'https://github.com/retaildevcrews/argo-labs.git'
-        path: flamingo/fluxapps
+        path: flamingo/flux-install
         targetRevision: pragmatical/argolabs-start
       destination:
         name: '{{name}}'
