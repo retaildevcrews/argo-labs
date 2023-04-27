@@ -8,7 +8,7 @@ Usage of Flamingo Subsystem for ArgoCD
 
 During the lab you will:
 
-1. Set up 2 k3d clusters - management cluster, and 3 workload clusters
+1. Set up 2 k3d clusters - management cluster, and a workload clusters
 2. Set up ArgoCD with Flamingo
 3. Deploy sample applications
 
@@ -43,11 +43,23 @@ During the lab you will:
 
 ## Steps
 
+> **Note**
+> If you are running in a dev container and it stopped and restarted you may need to add an entry to the /etc/hosts file run the following command
+>
+> ``` bash
+> if grep -wq "host.k3d.internal" /etc/hosts; then 
+>    echo "Host entry exists for k3d clusters" 
+> else 
+>    sudo echo '0.0.0.0         host.k3d.internal' | sudo tee -a /etc/hosts
+> fi
+> ```
+
 1. Ensure you are executing this lab from the flamingo directory
 
 2. Create k3d Clusters
 
     ``` bash
+    # for now only configue one cluster
     k3d cluster create workload-cluster-1 --kubeconfig-update-default=false
     k3d cluster create argomgmt --kubeconfig-update-default=false
     k3d kubeconfig merge --all -o config-argo
@@ -66,7 +78,7 @@ During the lab you will:
 
     ``` bash
     flux install
-    kubectl wait pods -n fluxcd --all --for condition=ready --insecure-skip-tls-verify
+    kubectl wait pods -n flux-system --all --for condition=ready --insecure-skip-tls-verify
     ```
 
 5. Bootstrap demo
@@ -107,10 +119,37 @@ During the lab you will:
     ``` bash
     #Connect to api server 
     argocd login localhost:8080 --username admin --password <same_password_used_in_ui>
-    argocd cluster add k3d-workload-cluster-1 --name workload-cluster-1 --insecure
+    argocd cluster add k3d-workload-cluster-1 --name workload-cluster-1 --insecure-skip-tls-verify
     ```
 
-9. Clean up
+9. Deploy prometheus via helmrelease locally in management cluster
+
+    ``` bash
+    # Create flux helm repo in argo management cluster
+    kubectl apply -f repositories/prometheus-helmrepo.yaml
+    # Create helm release locally
+    kubectl apply -f argoapps/exampleapp-local.yaml
+    ```
+
+10. Deploy prometheus via helmrelease to workload-cluster-1
+
+    ``` bash
+    # In order to deploy helm release to destination cluster, it must have the flux controllers running locally
+    # For this example it will use sourcecontroller as well as helmcontroller
+    # Steps
+    # Change context to workload cluster context 
+    kubectl config use-context k3d-workload-cluster-1
+    # Install flux in destination cluster
+    flux install
+    # Create flux helm repo in destinatino cluster
+    kubectl apply -f repositories/prometheus-helmrepo.yaml
+    # Return to argomgmt context
+    kubectl config use-context k3d-argomgmt
+    # Apply prometheus helmrelease example
+    kubectl apply -f argoapps/exampleapp-workload.yaml
+    ```
+
+11. Clean up
 
     ``` bash
     k3d cluster delete workload-cluster-1

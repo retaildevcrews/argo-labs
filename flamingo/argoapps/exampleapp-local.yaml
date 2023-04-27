@@ -1,0 +1,37 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: argolabs
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: prometheus
+  namespace: argolabs
+spec:
+  interval: 1m0s
+  url: https://prometheus-community.github.io/helm-charts
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: helm-sample-flux
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/retaildevcrews/argo-labs.git'
+    path: flamingo/fluxapps
+    targetRevision: pragmatical/argolabs-start
+  destination:
+    namespace: argolabs
+    name: in-cluster
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
+      - FluxSubsystem=false
+      - Replace=true
