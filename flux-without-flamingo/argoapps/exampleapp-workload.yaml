@@ -10,7 +10,7 @@ spec:
   project: default
   source:
     repoURL: 'https://github.com/retaildevcrews/argo-labs.git'
-    path: flamingo/fluxapps
+    path: flux-without-flamingo/fluxapps
     targetRevision: pragmatical/argolabs-start
   destination:
     namespace: argolabs

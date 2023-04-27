@@ -120,7 +120,7 @@ During the lab you will:
     ``` bash
     #Connect to api server 
     argocd login localhost:8080 --username admin --password <same_password_used_in_ui>
-    argocd cluster add k3d-workload-cluster-1 --name workload-cluster-1 --insecure-skip-tls-verify
+    argocd cluster add k3d-workload-cluster-1 --name workload-cluster-1 --insecure
     ```
 
 9. Deploy prometheus via helmrelease locally in management cluster
