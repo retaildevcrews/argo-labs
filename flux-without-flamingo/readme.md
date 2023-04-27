@@ -81,11 +81,12 @@ During the lab you will:
     kubectl wait pods -n flux-system --all --for condition=ready --insecure-skip-tls-verify
     ```
 
-5. Bootstrap demo
+5. Install Argo
 
     ``` bash
-    kubectl apply -f helmrepository.yaml
-    kubectl apply -f demo-bootstrap.yaml
+    kubectl create namespace argocd --insecure-skip-tls-verify
+    kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml --insecure-skip-tls-verify
+    # Wait until all pods are showing 1/1 in ready state
     kubectl wait pods -n argocd --all --for condition=ready --insecure-skip-tls-verify
     ```
 
