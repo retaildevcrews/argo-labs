@@ -19,5 +19,5 @@ spec:
     automated: {}
     syncOptions:
       - CreateNamespace=true
-      - FluxSubsystem=false
+      - FluxSubsystem=true
       - Replace=true
