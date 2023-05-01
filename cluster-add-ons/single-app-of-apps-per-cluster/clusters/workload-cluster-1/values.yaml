@@ -1,5 +1,5 @@
 configmapReload:
   prometheus:
     enabled: true
-prometheus-node-exporter:
+prometheusnodeexporter:
     enabled: false
