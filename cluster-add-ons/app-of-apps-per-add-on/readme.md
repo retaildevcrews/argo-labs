@@ -16,6 +16,17 @@ During the lab you will:
 
 ## Prerequisites
 
+> **Note**
+> If you are running in a dev container and it stopped and restarted you may need to add an entry to the /etc/hosts file run the following command
+>
+> ``` bash
+> if grep -wq "host.k3d.internal" /etc/hosts; then 
+>    echo "Host entry exists for k3d clusters" 
+> else 
+>    sudo echo '0.0.0.0         host.k3d.internal' | sudo tee -a /etc/hosts
+> fi
+> ```
+
 1. Kubectl - Installation instructions here: <https://kubernetes.io/docs/tasks/tools/>
 2. Argo CLI - Installation instructions here: <https://argo-cd.readthedocs.io/en/stable/cli_installation/>
 3. Docker - Installation instruction here: <https://docs.docker.com/engine/install/>
