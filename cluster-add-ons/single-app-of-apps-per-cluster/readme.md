@@ -46,6 +46,17 @@ During the lab you will:
 
 ## Steps
 
+> **Note**
+> If you are running in a dev container and it stopped and restarted you may need to add an entry to the /etc/hosts file run the following command
+>
+> ``` bash
+> if grep -wq "host.k3d.internal" /etc/hosts; then 
+>    echo "Host entry exists for k3d clusters" 
+> else 
+>    sudo echo '0.0.0.0         host.k3d.internal' | sudo tee -a /etc/hosts
+> fi
+> ```
+
 1. Ensure you are executing this lab from the cluster-add-ons/single-app-of-apps-per-cluster directory
 
 2. Create k3d Clusters
