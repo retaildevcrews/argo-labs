@@ -20,6 +20,8 @@ spec:
       parameters:
       - name: 'configmapReload.prometheus.enabled'
         value: '{{ .Values.configmapReload.prometheus.enabled}}'
+      - name: 'prometheus-node-exporter.enabled'
+        value: '{{ .Values.prometheus-node-exporter.enabled}}'
   syncPolicy:
     automated:
         prune: false
