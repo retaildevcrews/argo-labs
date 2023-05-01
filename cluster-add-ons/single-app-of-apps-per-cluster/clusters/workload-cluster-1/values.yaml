@@ -1,4 +1,4 @@
-testlabel: 'testlabel'
+testlabel: 'testlabel-overwritten'
 configmapReload:
   prometheus:
     enabled: true
