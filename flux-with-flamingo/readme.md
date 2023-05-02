@@ -84,7 +84,7 @@ During the lab you will:
 5. Bootstrap demo
 
     ``` bash
-    kubectl apply -f helmrepository.yaml
+    kubectl apply -f repositories/prometheus-helmrepo.yaml
     kubectl apply -f demo-bootstrap.yaml
     kubectl wait pods -n argocd --all --for condition=ready --insecure-skip-tls-verify
     ```
