@@ -2,4 +2,4 @@ configmapReload:
   prometheus:
     enabled: true
 prometheusnodeexporter:
-    enabled: false
+    enabled: true
