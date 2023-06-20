@@ -1,15 +1,15 @@
-# Lab: Flamingo
+# Lab: Argo With Flux Without Flamingo
 
 ## Introduction
 
-This lab will walk you through using flamingo subsystem for argo.  The goal of this lab is to demonstrate:
+This lab will walk you through using Argo and deploying a Flux HelmRelease to a destination cluster.  The goal of this lab is to demonstrate:
 
-Usage of Flamingo Subsystem for ArgoCD
+Usage of ArgoCD in conjunction with Flux
 
 During the lab you will:
 
 1. Set up 2 k3d clusters - management cluster, and a workload clusters
-2. Set up ArgoCD with Flamingo
+2. Set up ArgoCD on a management cluster and Flux on Destination CLuster
 3. Deploy sample applications
 
 ## Prerequisites (If Running in Codespaces the prerequisites should be installed already in environment)
