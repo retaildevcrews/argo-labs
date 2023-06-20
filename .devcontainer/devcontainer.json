@@ -5,7 +5,8 @@
 		"ghcr.io/devcontainers/features/docker-in-docker:1": {
 			"version": "latest",
 			"moby": true
-		}
+		},
+		"ghcr.io/dhoeric/features/k9s:1": {}
 	},
 	"customizations": {
 		"vscode": {
