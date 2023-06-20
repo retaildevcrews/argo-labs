@@ -11,7 +11,7 @@ spec:
   source:
     path: argo-core/applications
     repoURL: https://github.com/retaildevcrews/argo-labs.git
-    targetRevision: https://github.com/retaildevcrews/argo-labs.git
+    targetRevision:  1309-argolabs-deploy-argo-using-core-deployment-strategy 
   syncPolicy:
     retry:
       backoff:
