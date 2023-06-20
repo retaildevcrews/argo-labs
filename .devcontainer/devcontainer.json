@@ -1,8 +1,13 @@
 {
 	"name": "argo-labs",
-	"dockerFile": "Dockerfile",
+	"image": "mcr.microsoft.com/devcontainers/base:ubuntu",
 	"runArgs": [ "--init", "--privileged" ],
-	"onCreateCommand": "/bin/bash .devcontainer/on-create.sh",
+	"features": {
+		"ghcr.io/devcontainers/features/docker-in-docker:1": {
+			"version": "latest",
+			"moby": true
+		}
+	},
 	"customizations": {
 		"vscode": {
 			"settings": {
@@ -15,9 +20,9 @@
 				"davidanson.vscode-markdownlint",
 				"gruntfuggly.todo-tree",
 				"ms-azuretools.vscode-docker",
-				"humao.rest-client",
-				"Bridgecrew.checkov"
+				"humao.rest-client"
 			]
 		}
-	}
+	},
+	"onCreateCommand": "/bin/bash .devcontainer/on-create.sh"
 }

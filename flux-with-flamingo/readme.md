@@ -54,12 +54,12 @@ During the lab you will:
 > fi
 > ```
 
-1. Ensure you are executing this lab from the flamingo directory
+1. Ensure you are executing this lab from the flux-with-flamingo directory
 
 2. Create k3d Clusters
 
     ``` bash
-    # for now only configue one cluster
+    # for now only configure one cluster
     k3d cluster create workload-cluster-1 --kubeconfig-update-default=false
     k3d cluster create argomgmt --kubeconfig-update-default=false
     k3d kubeconfig merge --all -o config-argo
