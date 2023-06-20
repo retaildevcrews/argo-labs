@@ -1,7 +1,6 @@
 {
 	"name": "argo-labs",
 	"image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-	"runArgs": [ "--init", "--privileged" ],
 	"features": {
 		"ghcr.io/devcontainers/features/docker-in-docker:1": {
 			"version": "latest",

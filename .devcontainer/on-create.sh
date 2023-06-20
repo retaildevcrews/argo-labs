@@ -5,6 +5,11 @@ echo "on-create started" >> $HOME/status
 # Change shell to zsh for vscode
 sudo chsh --shell /bin/zsh vscode
 
+# Install kubectl
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+rm kubectl
+
 wget -q -O - https://raw.githubusercontent.com/rancher/k3d/main/install.sh | sudo bash
 
 # Install dyff to make kustomize diff easier
