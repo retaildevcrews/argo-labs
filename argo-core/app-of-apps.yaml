@@ -9,7 +9,7 @@ spec:
     namespace: default
   project: default
   source:
-    path: argo-core/applications
+    path: argo-core/applications/apps
     repoURL: https://github.com/retaildevcrews/argo-labs.git
     targetRevision:  1309-argolabs-deploy-argo-using-core-deployment-strategy 
   syncPolicy:
