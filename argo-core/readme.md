@@ -63,7 +63,7 @@ During the lab you will:
     k3d kubeconfig merge --all -o config-argo
     sed -i'.original' 's/0.0.0.0/host.k3d.internal/g' config-argo
     export KUBECONFIG=config-argo
-    kubectl config use-context argo-cluster 
+    kubectl config use-context k3d-argo-cluster 
     ```
 
 3. Validate current kubectl context is set to argo-cluster
@@ -81,37 +81,25 @@ During the lab you will:
     kubectl wait pods -n argocd --all --for condition=ready --insecure-skip-tls-verify
     ```
 
-5. Expose API Server External to Cluster (run this command in a new zsh terminal so port forwarding remains running)
+5. Run the UI from a new terminal
 
     ``` bash
     # Forward port to access UI outside of cluster
     export KUBECONFIG=config-argo
-    kubectl port-forward svc/argocd-server -n argocd 8080:443  --insecure-skip-tls-verify
+    kubectl config use-context k3d-argo-cluster
+    argocd admin dashboard
     ```
-
-    After this step is complete go back to original terminal to run the rest of the commands
 
 6. Access UI
 
-    1. Get initial password
+    1. You can now access UI by going to: <http://127.0.0.1:8080/>
 
-        ``` bash
-        # Get the initial password for installation - make note
-        argocd admin initial-password -n argocd
-        argocd login --core
-        ````
-
-    2. You can now access UI by going to: <https://localhost:8080>
-    3. Log in using User: admin and Password: from step 6.1
-    4. Navigate to <https://localhost:8080/user-info>
-    5. Click Update Password Button and change to your password of choice
-    6. You will then be logged out, log back in using credentials above
-
-7. Deploy prometheus via helmrelease locally in argo cluster
+7. Deploy guestbook into the cluster running ArgoCD
 
     ``` bash
+    kubectl delete --all pods --namespace=argocd --insecure-skip-tls-verify
     # Create flux helm repo in argo cluster
-    kubectl apply -f repositories/prometheus-helmrepo.yaml
+    kubectl apply -f app-of-apps.yaml --insecure-skip-tls-verify
     ```
 
 8. Clean up
