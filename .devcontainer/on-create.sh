@@ -16,11 +16,7 @@ wget -q -O - https://raw.githubusercontent.com/rancher/k3d/main/install.sh | sud
 curl --silent --location https://git.io/JYfAY | sudo bash
 
 # install latest flux in ~/.local/bin
-curl -s https://fluxcd.io/install.sh |  bash -s - ~/.local/bin
-# install flux completions for bash
-echo '. <(flux completion bash)' >> ~/.bashrc
-# install flux completions for zsh
-echo '. <(flux completion zsh)' >> ~/.zshrc
+curl -s https://fluxcd.io/install.sh |  bash -s - /usr/local/bin
 
 # Install ArgoCD CLI
 curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
