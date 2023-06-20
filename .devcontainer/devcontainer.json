@@ -2,25 +2,22 @@
 	"name": "argo-labs",
 	"dockerFile": "Dockerfile",
 	"runArgs": [ "--init", "--privileged" ],
-	"overrideCommand": false,
-
-	// Set container specific settings
-	"settings": {
-		"terminal.integrated.defaultProfile.linux": "zsh"
-	},
-
-	"remoteUser": "vscode",
-
-	"forwardPorts": [],
-
-	// Install extensions
-	"extensions": [
-		"davidanson.vscode-markdownlint",
-		"gruntfuggly.todo-tree",
-		"ms-azuretools.vscode-docker",
-		"humao.rest-client",
-		"Bridgecrew.checkov"
-	],
-
-	"onCreateCommand": "/bin/bash .devcontainer/on-create.sh"
+	"onCreateCommand": "/bin/bash .devcontainer/on-create.sh",
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"terminal.integrated.defaultProfile.linux": "zsh"
+			},
+			"remoteUser": "vscode",
+			"forwardPorts": [],
+			// Install extensions
+			"extensions": [
+				"davidanson.vscode-markdownlint",
+				"gruntfuggly.todo-tree",
+				"ms-azuretools.vscode-docker",
+				"humao.rest-client",
+				"Bridgecrew.checkov"
+			]
+		}
+	}
 }
