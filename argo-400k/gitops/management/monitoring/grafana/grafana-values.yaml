@@ -26,7 +26,6 @@ datasources:
    datasources:
    - name: Prometheus
      type: prometheus
-     #TODO: Fix prometheus service url
-     url: http://prometheus-service.prometheus:9090
+     url: http://prometheus-kube-prometheus-prometheus.prometheus:9090
      access: proxy
      isDefault: true
