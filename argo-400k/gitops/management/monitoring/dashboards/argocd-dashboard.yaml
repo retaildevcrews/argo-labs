@@ -3996,3 +3996,8 @@ data:
       "uid": "LCAgc9rWz",
       "version": 1
     }
+kind: ConfigMap
+metadata:
+  labels:
+    grafana_dashboard: "1"
+  name: argocd-dashboard
