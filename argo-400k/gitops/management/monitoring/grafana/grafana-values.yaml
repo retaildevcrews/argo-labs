@@ -1,0 +1,32 @@
+adminPassword: prom-operator
+env:
+  GF_USERS_VIEWERS_CAN_EDIT: true
+  GF_AUTH_ANONYMOUS_ORG_NAME: "Main Org."
+persistence:
+  type: pvc
+  enabled: true
+rbac:
+  pspEnabled: false
+grafana.ini:
+  users:
+    viewers_can_edit: true
+  auth.anonymous:
+      enabled: true
+sidecar:
+  dashboards:
+    enabled: true
+    label: grafana_dashboard
+    labelValue: "1"
+    multicluster:
+      global:
+        enabled: false
+datasources:
+ datasources.yaml:
+   apiVersion: 1
+   datasources:
+   - name: Prometheus
+     type: prometheus
+     #TODO: Fix prometheus service url
+     url: http://prometheus-service.prometheus:9090
+     access: proxy
+     isDefault: true

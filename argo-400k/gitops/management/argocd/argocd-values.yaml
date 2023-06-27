@@ -12,7 +12,6 @@ configs:
       url: https://github.com/retaildevcrews/argo-labs.git
       name: gitops
       type: git
-
 redis-ha:
   enabled: true
 
@@ -31,4 +30,3 @@ repoServer:
 
 applicationSet:
   replicaCount: 2
-    

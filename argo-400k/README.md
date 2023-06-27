@@ -14,8 +14,15 @@ Install Argo
 helm upgrade -i -n argocd \
   --version 5.36.10 \
   --create-namespace \
-  --values argo-400k/argocd/argocd-values.yaml \
+  --values argo-400k/gitops/management/argocd/argocd-values.yaml \
   argocd argo/argo-cd
+  
+helm upgrade -i -n argocd \
+  --version 0.0.9\
+  --create-namespace \
+  --values argo-400k/argocd-initial-objects.yaml \
+  argocd-apps argo/argocd-apps
+
 ```
 
 Access argo ui:
