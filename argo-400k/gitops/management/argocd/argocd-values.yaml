@@ -14,19 +14,29 @@ configs:
       type: git
 redis-ha:
   enabled: true
+  metrics:
+    enabled: true  
 
 controller:
   replicas: 1
+  metrics:
+    enabled: true
 
 server:
   autoscaling:
     enabled: true
     minReplicas: 2
+  metrics:
+    enabled: true    
 
 repoServer:
   autoscaling:
     enabled: true
     minReplicas: 2
+  metrics:
+    enabled: true    
 
 applicationSet:
   replicaCount: 2
+  metrics:
+    enabled: true  
