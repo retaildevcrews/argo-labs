@@ -23,5 +23,7 @@ prometheus:
     externalLabels:
       region: southcentral
       cluster: management
+    retention:
+      size: 2GB
 grafana:
   enabled: false
