@@ -47,25 +47,31 @@ argocd --port-forward --port-forward-namespace argocd app create guestbook --rep
 
 ## Testing details
 
-- TODO: cluster setup, where is argo running, where are workload running
-- goal - reach 400k apps
+- TODO: cluster setup, where is argo running, where are workloads running
+- Goal - reach 400k argo apps
 
 ### scenario 1
 
-- 1 argo app per namespace
-- manual argo app sync
-- TODO: how many apps to add at once?
-- TODO: how long to wait between each round of scaling?
+Setup:
 
-TODO: purpose
+- 1 Argo app per k8s namespace
+- Manual argo app sync
+- TODO: How many apps to add at once?
+- TODO: How long to wait between each round of scaling?
+
+Purpose:
 
 - Find limit of Argo UI usability relative to the number of apps
   - TODO: define usable
 - Find upper limit of apps that can be registered(manual sync) to a single Argo instance
-- Determine required resources(cpu/memory/pod counts/etc.) for a single Argo instance to manage maximum number of apps
-- Document argo configuration values that need to be tuned to support  maximum number of apps
+- Determine required resources(cpu/memory/pod counts/node count/etc.) for a single Argo instance to manage maximum number of apps
+- Document argo configuration values that need to be tuned to support maximum number of apps
 
-TODO: observability - what metrics should we track?
+Observability:
+
+- Number of Argo related pods
+- Memory/CPU usage of Argo related pods
+- What other metrics should we track? Anything related to k8s metrics, nodes, etc?
 
 ## TBD/TODO
 
@@ -74,7 +80,7 @@ TODO: observability - what metrics should we track?
 
 Design Considerations:
 
-- how many apps in a namespace?
-- number of namespace per cluster?
-- number of argo projects?
-- number of apps per argo project?
+- How many apps in a namespace?
+- Number of namespace per cluster?
+- Number of Argo projects?
+- Number of Argo apps per Argo project?
