@@ -14,6 +14,11 @@ Install Argo
 helm upgrade -i -n argocd \
   --version 5.36.10 \
   --create-namespace \
+  --set redis-ha.metrics.serviceMonitor.enabled=false \
+  --set controller.metrics.serviceMonitor.enabled=false \
+  --set server.metrics.serviceMonitor.enabled=false \
+  --set repoServer.metrics.serviceMonitor.enabled=false \
+  --set applicationSet.metrics.serviceMonitor.enabled=false \
   --values argo-400k/gitops/management/argocd/argocd-values.yaml \
   argocd argo/argo-cd
   
