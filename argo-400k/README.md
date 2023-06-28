@@ -21,7 +21,7 @@ helm upgrade -i -n argocd \
   --set applicationSet.metrics.serviceMonitor.enabled=false \
   --values argo-400k/gitops/management/argocd/argocd-values.yaml \
   argocd argo/argo-cd
-  
+
 helm upgrade -i -n argocd \
   --version 0.0.9\
   --create-namespace \
@@ -45,26 +45,36 @@ Deply Guestbook app
 argocd --port-forward --port-forward-namespace argocd app create guestbook --repo https://github.com/argoproj/argocd-example-apps.git --path guestbook --sync-policy none --dest-namespace default --dest-server https://kubernetes.default.svc --directory-recurse
 ```
 
-TBD/TODO:
+## Testing details
+
+- TODO: cluster setup, where is argo running, where are workload running
+- goal - reach 400k apps
+
+### scenario 1
+
+- 1 argo app per namespace
+- manual argo app sync
+- TODO: how many apps to add at once?
+- TODO: how long to wait between each round of scaling?
+
+TODO: purpose
+
+- Find limit of Argo UI usability relative to the number of apps
+  - TODO: define usable
+- Find upper limit of apps that can be registered(manual sync) to a single Argo instance
+- Determine required resources(cpu/memory/pod counts/etc.) for a single Argo instance to manage maximum number of apps
+- Document argo configuration values that need to be tuned to support  maximum number of apps
+
+TODO: observability - what metrics should we track?
+
+## TBD/TODO
 
 - Register in Argo the target "ApplicationS" Cluster
 - Automate to deploy 400k apps
-- observability dashboard
-  - other than cpu and memory, what other metrics should be tracked?
 
 Design Considerations:
 
-- 1 app per namespace?
-- Test Setup/Design
-  - number of namespaces?
-  - number of apps per namespace?
-  - number of argo projects?
-  - how many clusters to distribute the 400k apps?
-    - nodes have a max pod count limit
-- Resource Requirements for each app? (argo guestbook app)
-
-Questions about 400k number to aid in design:
-
-- does the number include multiple environments (dev, test, prod)?
-- is there a 1 to 1 mapping of app deployements and argo applications?
-  - example: a product has a web ui deployment and a backend api deployment. would that be 1 argo application with 2 deployments, or 2 argo applications each with 1 deployment?
+- how many apps in a namespace?
+- number of namespace per cluster?
+- number of argo projects?
+- number of apps per argo project?
