@@ -35,6 +35,8 @@ server:
     serviceMonitor:
       enabled: true
       namespace: "prometheus"
+      additionalLabels: 
+        release: prometheus
 
 repoServer:
   autoscaling:
