@@ -1,23 +1,25 @@
 #!/bin/bash
 
 # Check if both parameters are provided
-if [ $# -ne 2 ]; then
-  echo "Usage: $0 <num_of_apps> <batch_interval>"
+if [ $# -ne 3 ]; then
+  echo "Usage: $0 <start> <stop> <batch_interval>"
   exit 1
 fi
 
-iterations=$1
+start=$1
+stop=$2
 batch_interval=$2
 
 # Iterate and execute the argocd command
-for ((i=1; i<=iterations; i++))
+for ((i=start; i<=stop; i++))
 do
   # Set app name
-  app_name=guestbook$i
+  app_number=$(printf "%06d" $i)
+  app_name=guestbook$app_number
 
   # Execute the argocd command
   echo "Deploying app: $app_name"
-  if ! argocd --port-forward --port-forward-namespace argocd app create $app_name --repo https://github.com/argoproj/argocd-example-apps.git --path guestbook --sync-policy none --dest-namespace app_name --dest-server https://kubernetes.default.svc --directory-recurse; then
+  if ! argocd app create $app_name --repo https://github.com/argoproj/argocd-example-apps.git --path guestbook --sync-policy none --sync-option CreateNamespace=true --dest-namespace $app_name --dest-server https://kubernetes.default.svc --directory-recurse --upsert -l testing=argoperf; then
     echo "Failed to execute argocd command. Stopping execution."
     exit 1
   fi

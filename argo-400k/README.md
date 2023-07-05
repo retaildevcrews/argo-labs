@@ -37,12 +37,12 @@ Get argo password for admin:
 `kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d`
 
 Argo Login
-`argocd --port-forward --port-forward-namespace argocd --grpc-web --plaintext login --username admin --password <PasswordFromCommand Above>`
+`argocd login localhost:8080 --username admin --password <PasswordFromCommand Above>`
 
 Deply Guestbook app
 
 ```bash
-argocd --port-forward --port-forward-namespace argocd app create guestbook --repo https://github.com/argoproj/argocd-example-apps.git --path guestbook --sync-policy none --dest-namespace default --dest-server https://kubernetes.default.svc --directory-recurse
+argocd app create guestbook --repo https://github.com/argoproj/argocd-example-apps.git --path guestbook --sync-policy none --dest-namespace default --dest-server https://kubernetes.default.svc --directory-recurse
 ```
 
 ## Testing details
