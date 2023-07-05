@@ -2,12 +2,12 @@
 
 # Check if both parameters are provided
 if [ $# -ne 2 ]; then
-  echo "Usage: $0 <num_of_apps> <sleep_interval>"
+  echo "Usage: $0 <num_of_apps> <batch_interval>"
   exit 1
 fi
 
 iterations=$1
-sleep_interval=$2
+batch_interval=$2
 
 # Iterate and execute the argocd command
 for ((i=1; i<=iterations; i++))
@@ -22,8 +22,8 @@ do
     exit 1
   fi
 
-  # Check if sleep interval needs to be applied
-  if [ $((i % sleep_interval)) -eq 0 ]; then
+  # Check if sleep interval needs to be applied based on batch interval
+  if [ $((i % batch_interval)) -eq 0 ]; then
     echo "Sleeping for 5 seconds..."
     sleep 5
   fi
