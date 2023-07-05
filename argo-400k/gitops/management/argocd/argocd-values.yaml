@@ -5,7 +5,7 @@ configs:
     # users.anonymous.enabled: "true"
     timeout.reconciliation: 10s
   params:
-    server.insecure: true
+    # server.insecure: true
     application.namespaces: "*"
   repositories:
     gitops:
