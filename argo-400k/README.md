@@ -75,12 +75,13 @@ Observability:
 
 ## TBD/TODO
 
-- Register in Argo the target "ApplicationS" Cluster
+- Register in Argo the target "Applications" Cluster
 - Automate to deploy 400k apps
 
 Design Considerations:
 
 - How many apps in a namespace?
-- Number of namespace per cluster?
+- Number of namespaces per cluster?
 - Number of Argo projects?
 - Number of Argo apps per Argo project?
+- TODO: investigate HPA errors in current Argo setup

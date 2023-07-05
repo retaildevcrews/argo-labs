@@ -8,7 +8,14 @@ fi
 
 start=$1
 stop=$2
-batch_interval=$2
+batch_interval=$3
+
+# login to argocd server
+echo "start: $start"
+echo "stop: $stop"
+echo "batch_interval: $batch_interval"
+echo "ARGOCD_LOGIN_SERVER: $ARGOCD_LOGIN_SERVER"
+argocd login $ARGOCD_LOGIN_SERVER --username admin --password $ARGOCD_PASSWORD --insecure
 
 # Iterate and execute the argocd command
 for ((i=start; i<=stop; i++))
