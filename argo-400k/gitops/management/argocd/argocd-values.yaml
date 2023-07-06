@@ -19,8 +19,8 @@ redis-ha:
     serviceMonitor:
       enabled: true
       namespace: "prometheus"
-      additionalLabels: 
-        release: prometheus      
+      additionalLabels:
+        release: prometheus
 
 controller:
   replicas: 1
@@ -29,8 +29,8 @@ controller:
     serviceMonitor:
       enabled: true
       namespace: "prometheus"
-      additionalLabels: 
-        release: prometheus      
+      additionalLabels:
+        release: prometheus
 
 server:
   autoscaling:
@@ -41,8 +41,15 @@ server:
     serviceMonitor:
       enabled: true
       namespace: "prometheus"
-      additionalLabels: 
+      additionalLabels:
         release: prometheus
+  resources:
+   limits:
+     cpu: 1000m
+     memory: 2048Mi
+   requests:
+     cpu: 500m
+     memory: 1024Mi
 
 repoServer:
   autoscaling:
@@ -53,16 +60,22 @@ repoServer:
     serviceMonitor:
       enabled: true
       namespace: "prometheus"
-      additionalLabels: 
-        release: prometheus      
+      additionalLabels:
+        release: prometheus
+  resources:
+   limits:
+     cpu: 1000m
+     memory: 2048Mi
+   requests:
+     cpu: 500m
+     memory: 1024Mi
 
 applicationSet:
   replicaCount: 2
   metrics:
-    enabled: true  
+    enabled: true
     serviceMonitor:
       enabled: true
       namespace: "prometheus"
-      additionalLabels: 
+      additionalLabels:
         release: prometheus
-      
