@@ -13,8 +13,8 @@ spec:
     command: ["./create_guestbook.sh"]
     args:
       - "1"
-      - "200"
-      - "200"
+      - "10000"
+      - "1000"
     env:
     - name: ARGOCD_LOGIN_SERVER
       value: argocd-server.argocd
