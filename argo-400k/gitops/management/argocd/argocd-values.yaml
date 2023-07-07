@@ -41,7 +41,7 @@ server:
   autoscaling:
     enabled: true
     minReplicas: 5
-    maxReplicas: 20
+    maxReplicas: 10
   metrics:
     enabled: true
     serviceMonitor:
@@ -61,7 +61,7 @@ repoServer:
   autoscaling:
     enabled: true
     minReplicas: 5
-    maxReplicas: 20
+    maxReplicas: 10
   metrics:
     enabled: true
     serviceMonitor:
