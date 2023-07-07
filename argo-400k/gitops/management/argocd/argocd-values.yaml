@@ -7,6 +7,8 @@ configs:
   params:
     # server.insecure: true
     application.namespaces: "*"
+    server.enable.gzip: true
+
   repositories:
     gitops:
       url: https://github.com/retaildevcrews/argo-labs.git
