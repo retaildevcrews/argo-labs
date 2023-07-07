@@ -40,7 +40,8 @@ controller:
 server:
   autoscaling:
     enabled: true
-    minReplicas: 10
+    minReplicas: 5
+    maxReplicas: 20
   metrics:
     enabled: true
     serviceMonitor:
@@ -59,7 +60,8 @@ server:
 repoServer:
   autoscaling:
     enabled: true
-    minReplicas: 2
+    minReplicas: 5
+    maxReplicas: 20
   metrics:
     enabled: true
     serviceMonitor:
