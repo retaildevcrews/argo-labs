@@ -12,6 +12,11 @@ configs:
       url: https://github.com/retaildevcrews/argo-labs.git
       name: gitops
       type: git
+
+global:
+  nodeSelector:
+    kubernetes.azure.com/mode: user
+
 redis-ha:
   enabled: true
   metrics:
