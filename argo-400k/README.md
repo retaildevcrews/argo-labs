@@ -91,7 +91,7 @@ General notes on attempt to deploy a lot of Argo apps:
 - Argo metrics related to timing are measured in seconds. This is not immediately obvious from docs and other available info.
   - Needed to look at source code to verify
   - <https://github.com/argoproj/argo-cd/blob/6041c0b7ddea3ed45980b58010cfb1bc3585ba06/controller/metrics/metrics.go#L273>
-- info metrics can be found here <https://argo-cd.readthedocs.io/en/stable/operator-manual/metrics/>
+  - info metrics can be found here <https://argo-cd.readthedocs.io/en/stable/operator-manual/metrics/>
 - Grafana dashboard
   - `Reconciliation Performance` panel is a heat map of how fast, in seconds, Argo is able to reconcile apps
   - `Workqueue Depth` panel shows `app_reconciliation_queue` steadily increasing as apps are being registered.
@@ -102,3 +102,4 @@ General notes on attempt to deploy a lot of Argo apps:
   - > app_operation_processing_queue is used to ensure the consistency between the local cache and the downstream Kubernetes clusters
   - <https://itnext.io/sync-10-000-argo-cd-applications-in-one-shot-bfcda04abe5b>
   - <https://argo-cd.readthedocs.io/en/stable/operator-manual/high_availability/#argocd-application-controller>
+  - <https://terrytangyuan.github.io/2022/01/11/unveil-the-secret-ingredients-of-continuous-delivery-at-enterprise-scale-with-argocd-kubecon-china-2021/#too-many-applications>
