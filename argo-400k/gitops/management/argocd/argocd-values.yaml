@@ -51,11 +51,11 @@ server:
         release: prometheus
   resources:
    limits:
+     cpu: 2000m
+     memory: 4096Mi
+   requests:
      cpu: 1000m
      memory: 2048Mi
-   requests:
-     cpu: 500m
-     memory: 1024Mi
 
 repoServer:
   autoscaling:
