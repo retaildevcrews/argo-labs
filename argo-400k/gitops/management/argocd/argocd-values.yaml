@@ -40,8 +40,8 @@ controller:
 server:
   autoscaling:
     enabled: true
-    minReplicas: 5
-    maxReplicas: 10
+    minReplicas: 10
+    maxReplicas: 20
   metrics:
     enabled: true
     serviceMonitor:
