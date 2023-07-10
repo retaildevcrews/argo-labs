@@ -32,7 +32,7 @@ redis-ha:
         release: prometheus
 
 controller:
-  replicas: 5
+  replicas: 2
   metrics:
     enabled: true
     serviceMonitor:
@@ -55,11 +55,10 @@ server:
         hosts:
           - argocd.joaquin.dev
     https: true
-
   autoscaling:
     enabled: true
-    minReplicas: 10
-    maxReplicas: 20
+    minReplicas: 2
+    maxReplicas: 5
   metrics:
     enabled: true
     serviceMonitor:
@@ -81,8 +80,8 @@ server:
 repoServer:
   autoscaling:
     enabled: true
-    minReplicas: 5
-    maxReplicas: 10
+    minReplicas: 2
+    maxReplicas: 5
   metrics:
     enabled: true
     serviceMonitor:
@@ -99,7 +98,7 @@ repoServer:
      memory: 1024Mi
 
 applicationSet:
-  replicaCount: 5
+  replicaCount: 2
   metrics:
     enabled: true
     serviceMonitor:
