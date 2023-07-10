@@ -3,11 +3,13 @@ configs:
     # policy.default: 'role:readonly'
   cm:
     # users.anonymous.enabled: "true"
-    timeout.reconciliation: 10s
+    timeout.reconciliation: 180s
   params:
     # server.insecure: true
     application.namespaces: "*"
     server.enable.gzip: true
+    controller.status.processors: 20
+    controller.operation.processors: 10
 
   repositories:
     gitops:

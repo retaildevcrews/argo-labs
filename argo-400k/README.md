@@ -94,12 +94,13 @@ General notes on attempt to deploy a lot of Argo apps:
   - info metrics can be found here <https://argo-cd.readthedocs.io/en/stable/operator-manual/metrics/>
 - Grafana dashboard
   - `Reconciliation Performance` panel is a heat map of how fast, in seconds, Argo is able to reconcile apps
-  - `Workqueue Depth` panel shows `app_reconciliation_queue` steadily increasing as apps are being registered.
-    - TODO: determine if this is expected behavior
-  - `Workqueue Depth` panel is not showing `app_operation_processing_queue` as apps are being registered
-    - TODO: determine if this is expected behavior
   - > app_reconciliation_queue is used to ensure the consistency between the upstream git repositories and Argo CD’s local cache
   - > app_operation_processing_queue is used to ensure the consistency between the local cache and the downstream Kubernetes clusters
   - <https://itnext.io/sync-10-000-argo-cd-applications-in-one-shot-bfcda04abe5b>
   - <https://argo-cd.readthedocs.io/en/stable/operator-manual/high_availability/#argocd-application-controller>
   - <https://terrytangyuan.github.io/2022/01/11/unveil-the-secret-ingredients-of-continuous-delivery-at-enterprise-scale-with-argocd-kubecon-china-2021/#too-many-applications>
+
+Things to try for better performance:
+- increase resync period to give time to clear queue, default is 3 mins
+- increase controller.status.processors to use more workers to clear queue, default is 20
+- work does not seem to be balanced evenly across argo application controller pods. one pod has significantly high resource ussage than the rest
