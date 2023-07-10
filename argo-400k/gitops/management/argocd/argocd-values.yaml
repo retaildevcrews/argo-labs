@@ -45,10 +45,10 @@ server:
   ingress:
     enabled: true
     ingressClassName: nginx
-    annotations: 
+    annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
       external-dns.alpha.kubernetes.io/hostname: argocd.joaquin.dev
-    hosts: 
+    hosts:
     - argocd.joaquin.dev
     tls:
       - secretName: argocd-tls
@@ -69,7 +69,7 @@ server:
         release: prometheus
   env:
     - name: ARGOCD_GRPC_MAX_SIZE_MB
-      value: "1000"
+      value: "200"
   resources:
    limits:
      cpu: 2000m
