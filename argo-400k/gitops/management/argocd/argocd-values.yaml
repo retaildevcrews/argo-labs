@@ -30,7 +30,7 @@ redis-ha:
         release: prometheus
 
 controller:
-  replicas: 1
+  replicas: 5
   metrics:
     enabled: true
     serviceMonitor:
@@ -83,7 +83,7 @@ repoServer:
      memory: 1024Mi
 
 applicationSet:
-  replicaCount: 2
+  replicaCount: 5
   metrics:
     enabled: true
     serviceMonitor:
