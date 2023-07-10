@@ -51,9 +51,9 @@ server:
       namespace: "prometheus"
       additionalLabels:
         release: prometheus
-  env:
-    - name: ARGOCD_GRPC_MAX_SIZE_MB
-      value: "400"
+  # env:
+  #   - name: ARGOCD_GRPC_MAX_SIZE_MB
+  #     value: "400"
   resources:
    limits:
      cpu: 2000m
