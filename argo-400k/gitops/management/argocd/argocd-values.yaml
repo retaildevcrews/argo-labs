@@ -1,11 +1,11 @@
 configs:
-  #rbac:
-    # policy.default: 'role:readonly'
+  rbac:
+    policy.default: 'role:readonly'
   cm:
-    # users.anonymous.enabled: "true"
+    users.anonymous.enabled: "true"
     timeout.reconciliation: 180s
   params:
-    # server.insecure: true
+    server.insecure: true
     application.namespaces: "*"
     server.enable.gzip: true
     controller.status.processors: 20
@@ -42,6 +42,20 @@ controller:
         release: prometheus
 
 server:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations: 
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      external-dns.alpha.kubernetes.io/hostname: argocd.joaquin.dev
+    hosts: 
+    - argocd.joaquin.dev
+    tls:
+      - secretName: argocd-tls
+        hosts:
+          - argocd.joaquin.dev
+    https: true
+
   autoscaling:
     enabled: true
     minReplicas: 10
