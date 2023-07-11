@@ -23,13 +23,13 @@ global:
 
 redis-ha:
   enabled: true
-  # metrics:
-  #   enabled: true
-  #   serviceMonitor:
-  #     enabled: true
-  #     namespace: "prometheus"
-  #     additionalLabels:
-  #       release: prometheus
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+      namespace: "prometheus"
+      additionalLabels:
+        release: prometheus
   haproxy:
     metrics:
       enabled: true
