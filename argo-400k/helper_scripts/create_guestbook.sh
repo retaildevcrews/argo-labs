@@ -14,6 +14,7 @@ fi
 start=$1
 stop=$2
 batch_interval=$3
+namespace=$HOSTNAME
 
 # login to argocd server
 echo "start: $start"
@@ -21,7 +22,7 @@ echo "stop: $stop"
 echo "batch_interval: $batch_interval"
 echo "ARGOCD_LOGIN_SERVER: $ARGOCD_LOGIN_SERVER"
 
-argocd login $ARGOCD_LOGIN_SERVER --username admin --password $ARGOCD_PASSWORD --insecure
+argocd login $ARGOCD_LOGIN_SERVER --username admin --password $ARGOCD_PASSWORD --grpc-web
 
 # Iterate and execute the argocd command
 for ((i=start; i<=stop; i++))
@@ -35,10 +36,11 @@ do
 
   retry_count=0
   max_retries=5
+  labels=("testing=argoperf" "hostname=$namespace");
 
   while ((retry_count < max_retries))
   do
-    output=$(argocd app create $app_name --repo https://github.com/argoproj/argocd-example-apps.git --path guestbook --sync-policy none --sync-option CreateNamespace=true --dest-namespace $app_name --dest-server https://kubernetes.default.svc --directory-recurse --upsert -l testing=argoperf 2>&1)
+    output=$(argocd app create $namespace-$app_name --repo https://github.com/argoproj/argocd-example-apps.git --path guestbook --sync-policy none --sync-option CreateNamespace=true --dest-namespace $namespace --dest-server https://kubernetes.default.svc --directory-recurse --upsert  -l testing=argoperf -l hostname=$namespace 2>&1)
 
     if [ $? -eq 0 ]; then
       echo "$output"
