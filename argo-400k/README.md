@@ -1,3 +1,56 @@
+## Step 1: Create an ArgoCD management cluster with AKS
+
+To create a new management cluster in AKS, run the following commands. Otherwise, if you already have an existing AKS cluster, you can skip this step and proceed to connecting to the existing AKS cluster. Change accoring to your liking, specially the `AZURE_DNS_ZONE`:
+
+```bash
+export AZURE_SUBSCRIPTION_ID=$(az account show --query id -o tsv)
+az account set --subscription $AZURE_SUBSCRIPTION_ID
+
+export CLUSTER_RG=argo-labs
+export CLUSTER_NAME=argocd_mgmt
+export LOCATION=southcentralus
+export IDENTITY_NAME=gitops$RANDOM
+export NODE_COUNT=4
+export AZ_AKS_VERSION=1.25.6
+export AZURE_DNS_ZONE=joaquin.dev
+export AZURE_DNS_ZONE_RESOURCE_GROUP=dns
+```
+
+Create a resource group for your AKS cluster with the following command, replacing <resource-group> with a name for your resource group and <location> with the Azure region where you want your resources to be located:
+
+```bash
+az group create --name $CLUSTER_RG --location $LOCATION
+```
+
+To use automatic DNS name updates via external-dns, we need to create a new managed identity and assign the role of DNS Contributor to the resource group containg the zone resource  
+
+```bash
+export IDENTITY=$(az identity create  -n $IDENTITY_NAME -g $CLUSTER_RG --query id -o tsv)
+export IDENTITY_CLIENTID=$(az identity show -g $CLUSTER_RG -n $IDENTITY_NAME -o tsv --query clientId)
+
+echo "Sleeping a bit (35 seconds) to let AAD catch up..."
+sleep 35
+
+export DNS_ID=$(az network dns zone show --name $AZURE_DNS_ZONE \
+  --resource-group $AZURE_DNS_ZONE_RESOURCE_GROUP --query "id" --output tsv)
+
+az role assignment create --role "DNS Zone Contributor" --assignee $IDENTITY_CLIENTID --scope $DNS_ID
+```
+
+Create an AKS cluster with the following command:
+
+```bash
+az aks create -k $AZ_AKS_VERSION -y -g $CLUSTER_RG \
+    -s Standard_D4s_v3 -c $NODE_COUNT \
+    --assign-identity $IDENTITY --assign-kubelet-identity $IDENTITY \
+    --network-plugin kubenet -n $CLUSTER_NAME
+```
+
+Connect to the AKS cluster:
+
+```bash
+az aks get-credentials --resource-group $CLUSTER_RG --name $CLUSTER_NAME
+```
 
 # Install Argo Helm Chart with HA Values
 
@@ -22,6 +75,10 @@ helm upgrade -i -n argocd \
   --values argo-400k/gitops/management/argocd/argocd-values.yaml \
   argocd argo/argo-cd
 
+# Wait for all pods to be created and be in running state
+
+kubectl get pods -A
+
 helm upgrade -i -n argocd \
   --version 0.0.9\
   --create-namespace \
@@ -30,14 +87,23 @@ helm upgrade -i -n argocd \
 
 ```
 
-Access argo ui:
-`kubectl port-forward service/argocd-server -n argocd 8080:443`
+Access the ArgoCD web UI by running the following command, and then open the URL in a web browser (ingress, external-dns and cert-manager take care of certificates and DNS hostname resolution):
+
+```bash
+open https://argocd.$AZURE_DNS_ZONE
+```
 
 Get argo password for admin:
-`kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d`
+
+```bash
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+```
 
 Argo Login
-`argocd login localhost:8080 --username admin --password <PasswordFromCommand Above>`
+
+```bash
+argocd login argocd.$AZURE_DNS_ZONE --username admin --password <PasswordFromCommand Above>`
+```
 
 Deply Guestbook app
 
