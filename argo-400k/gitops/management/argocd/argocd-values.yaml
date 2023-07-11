@@ -23,13 +23,16 @@ global:
 
 redis-ha:
   enabled: true
-  metrics:
-    enabled: true
-    serviceMonitor:
+  # metrics:
+  #   enabled: true
+  #   serviceMonitor:
+  #     enabled: true
+  #     namespace: "prometheus"
+  #     additionalLabels:
+  #       release: prometheus
+  haproxy:
+    metrics:
       enabled: true
-      namespace: "prometheus"
-      additionalLabels:
-        release: prometheus
 
 controller:
   replicas: 2
@@ -45,10 +48,10 @@ server:
   ingress:
     enabled: true
     ingressClassName: nginx
-    annotations: 
+    annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
       external-dns.alpha.kubernetes.io/hostname: argocd.joaquin.dev
-    hosts: 
+    hosts:
     - argocd.joaquin.dev
     tls:
       - secretName: argocd-tls
