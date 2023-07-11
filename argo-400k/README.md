@@ -22,7 +22,7 @@ Create a resource group for your AKS cluster with the following command, replaci
 az group create --name $CLUSTER_RG --location $LOCATION
 ```
 
-To use automatic DNS name updates via external-dns, we need to create a new managed identity and assign the role of DNS Contributor to the resource group containg the zone resource  
+To use automatic DNS name updates via external-dns, we need to create a new managed identity and assign the role of DNS Contributor to the resource group containg the zone resource
 
 ```bash
 export IDENTITY=$(az identity create  -n $IDENTITY_NAME -g $CLUSTER_RG --query id -o tsv)
@@ -167,6 +167,13 @@ General notes on attempt to deploy a lot of Argo apps:
   - <https://terrytangyuan.github.io/2022/01/11/unveil-the-secret-ingredients-of-continuous-delivery-at-enterprise-scale-with-argocd-kubecon-china-2021/#too-many-applications>
 
 Things to try for better performance:
+
 - increase resync period to give time to clear queue, default is 3 mins
 - increase controller.status.processors to use more workers to clear queue, default is 20
 - work does not seem to be balanced evenly across argo application controller pods. one pod has significantly high resource ussage than the rest
+
+## Scaling notes
+
+At 5k Argo apps with helm values, <https://github.com/retaildevcrews/argo-labs/blob/febc4888e17f509a4daa771ce3b9fdd62c948532/argo-400k/gitops/management/argocd/argocd-values.yaml>.
+
+- UI is taking around 6.3 seconds according to Edge performance dev tools
