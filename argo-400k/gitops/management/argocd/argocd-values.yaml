@@ -8,7 +8,7 @@ configs:
     server.insecure: true
     application.namespaces: "*"
     server.enable.gzip: true
-    controller.status.processors: 20
+    controller.status.processors: 40
     controller.operation.processors: 10
 
   repositories:
