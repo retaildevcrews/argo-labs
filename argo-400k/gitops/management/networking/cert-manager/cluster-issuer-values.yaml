@@ -1,4 +1,5 @@
 _: &email joaquin@joaquin.dev
+_: &solvers
 - http01:
     ingress:
       class: nginx
