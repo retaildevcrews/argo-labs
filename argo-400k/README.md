@@ -168,9 +168,13 @@ General notes on attempt to deploy a lot of Argo apps:
 
 Things to try for better performance:
 
-- increase resync period to give time to clear queue, default is 3 mins
-- increase controller.status.processors to use more workers to clear queue, default is 20
-- work does not seem to be balanced evenly across argo application controller pods. one pod has significantly high resource ussage than the rest
+- TODO:
+  - Increase resync period to give time to clear queue, default is 3 mins
+  - Increase controller.status.processors to use more workers to clear queue, default is 20
+  - Tweak application controller resource usage
+    - Reduce the number of replicas to 1 and make the cpu and memory requests very high
+    - The application controller replica count affects the performance relative to the number of Clusters and not Applications
+    - <https://argo-cd.readthedocs.io/en/stable/operator-manual/high_availability/#argocd-application-controller>
 
 ## Scaling notes
 
