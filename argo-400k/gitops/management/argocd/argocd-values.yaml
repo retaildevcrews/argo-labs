@@ -5,7 +5,7 @@ configs:
     users.anonymous.enabled: "true"
     # Timeout to discover if a new manifests version got published to the repository. 3 minutes by default.
     # Impacts how much time application controller queue processors have to clear te queue before the next reconciliation cycle.
-    timeout.reconciliation: 180s
+    timeout.reconciliation: 360s
   params:
     server.insecure: true
     application.namespaces: "*"
