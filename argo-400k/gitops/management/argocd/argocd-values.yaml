@@ -77,7 +77,7 @@ server:
   env:
     # Max size of the server response message in megabytes. Default is 200.
     - name: ARGOCD_GRPC_MAX_SIZE_MB
-      value: "400"
+      value: "800"
   resources:
    limits:
      cpu: 2000m
