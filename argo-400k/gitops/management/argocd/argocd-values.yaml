@@ -11,7 +11,7 @@ configs:
     application.namespaces: "*"
     server.enable.gzip: true
     # The number of queue processors to process application reconciliation queue. 20 by default
-    controller.status.processors: 40
+    controller.status.processors: 80
     # The number of queue processors to process app syncing queue. 10 by default
     controller.operation.processors: 10
 
