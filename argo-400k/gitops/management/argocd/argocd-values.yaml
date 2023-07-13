@@ -4,14 +4,14 @@ configs:
   cm:
     users.anonymous.enabled: "true"
     # Timeout to discover if a new manifests version got published to the repository. 3 minutes by default.
-    # Impacts how much time application controller queue processors have to clear te queue before the next reconciliation cycle.
+    # Impacts how much time application controller queue processors have to clear the queue before the next reconciliation cycle.
     timeout.reconciliation: 180s
   params:
     server.insecure: true
     application.namespaces: "*"
     server.enable.gzip: true
     # The number of queue processors to process application reconciliation queue. 20 by default
-    controller.status.processors: 640
+    controller.status.processors: 20
     # The number of queue processors to process app syncing queue. 10 by default
     controller.operation.processors: 10
 
