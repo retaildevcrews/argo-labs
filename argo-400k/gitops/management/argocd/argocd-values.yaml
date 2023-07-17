@@ -5,13 +5,13 @@ configs:
     users.anonymous.enabled: "true"
     # Timeout to discover if a new manifests version got published to the repository. 3 minutes by default.
     # Impacts how much time application controller queue processors have to clear the queue before the next reconciliation cycle.
-    timeout.reconciliation: 180s
+    timeout.reconciliation: 360s
   params:
     server.insecure: true
     application.namespaces: "*"
     server.enable.gzip: true
     # The number of queue processors to process application reconciliation queue. 20 by default
-    controller.status.processors: 20
+    controller.status.processors: 1000
     # The number of queue processors to process app syncing queue. 10 by default
     controller.operation.processors: 10
 
@@ -77,7 +77,7 @@ server:
   env:
     # Max size of the server response message in megabytes. Default is 200.
     - name: ARGOCD_GRPC_MAX_SIZE_MB
-      value: "800"
+      value: "200"
   resources:
    limits:
      cpu: 2000m

@@ -8,7 +8,7 @@ metadata:
 spec:
   completions: 5
   parallelism: 5
-  template: 
+  template:
     metadata:
       labels:
         name: argocd-jumpbox
@@ -20,7 +20,7 @@ spec:
         command: ["./create_guestbook.sh"]
         args:
           - "1"
-          - "1000"
+          - "200"
           - "100"
         env:
         - name: ARGOCD_LOGIN_SERVER
