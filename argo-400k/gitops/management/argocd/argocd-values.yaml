@@ -41,6 +41,8 @@ redis-ha:
 controller:
   # This replica count affects performance related to the number of Clusters that Argo is managing.
   replicas: 1
+  podAnnotations:
+    custom-deploy-toggle: "0"
   metrics:
     enabled: true
     serviceMonitor:
