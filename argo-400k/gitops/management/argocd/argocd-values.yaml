@@ -44,7 +44,7 @@ controller:
   podAnnotations:
     # Used to force a change in yaml template so a new version is deployed.
     # Useful when changing referenced configmaps.
-    custom-deploy-toggle: "1"
+    custom-deploy-toggle: "0"
   metrics:
     enabled: true
     serviceMonitor:
