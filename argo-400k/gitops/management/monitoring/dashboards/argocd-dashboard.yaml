@@ -3907,6 +3907,122 @@ data:
               ],
               "title": "CPU",
               "type": "timeseries"
+            },
+            {
+              "cards": {},
+              "color": {
+                "cardColor": "#b4ff00",
+                "colorScale": "sqrt",
+                "colorScheme": "interpolateSpectral",
+                "exponent": 0.5,
+                "mode": "spectrum"
+              },
+              "dataFormat": "tsbuckets",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "description": "",
+              "fieldConfig": {
+                "defaults": {
+                  "custom": {
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "scaleDistribution": {
+                      "type": "linear"
+                    }
+                  }
+                },
+                "overrides": []
+              },
+              "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 0,
+                "y": 18
+              },
+              "heatmap": {},
+              "hideZeroBuckets": false,
+              "highlightCards": true,
+              "id": 125,
+              "legend": {
+                "show": true
+              },
+              "links": [],
+              "options": {
+                "calculate": false,
+                "calculation": {},
+                "cellGap": 2,
+                "cellValues": {
+                  "decimals": 0
+                },
+                "color": {
+                  "exponent": 0.5,
+                  "fill": "#b4ff00",
+                  "mode": "scheme",
+                  "reverse": false,
+                  "scale": "exponential",
+                  "scheme": "Spectral",
+                  "steps": 128
+                },
+                "exemplars": {
+                  "color": "rgba(255,0,255,0.7)"
+                },
+                "filterValues": {
+                  "le": 1e-9
+                },
+                "legend": {
+                  "show": true
+                },
+                "rowsFrame": {
+                  "layout": "auto"
+                },
+                "showValue": "never",
+                "tooltip": {
+                  "show": true,
+                  "yHistogram": true
+                },
+                "yAxis": {
+                  "axisPlacement": "left",
+                  "reverse": false,
+                  "unit": "short"
+                }
+              },
+              "pluginVersion": "9.4.7",
+              "reverseYBuckets": false,
+              "targets": [
+                {
+                  "datasource": {
+                    "uid": "$datasource"
+                  },
+                  "editorMode": "code",
+                  "expr": "sum(increase(workqueue_queue_duration_seconds_bucket{namespace=~\"$namespace\",name=\"app_reconciliation_queue\"}[$interval])) by (le)",
+                  "format": "heatmap",
+                  "instant": false,
+                  "intervalFactor": 1,
+                  "legendFormat": "{{le}}",
+                  "refId": "A"
+                }
+              ],
+              "title": "Work queue wait time",
+              "tooltip": {
+                "show": true,
+                "showHistogram": true
+              },
+              "tooltipDecimals": 0,
+              "type": "heatmap",
+              "xAxis": {
+                "show": true
+              },
+              "yAxis": {
+                "format": "short",
+                "logBase": 1,
+                "show": true
+              },
+              "yBucketBound": "auto"
             }
           ],
           "title": "Application controller container",
