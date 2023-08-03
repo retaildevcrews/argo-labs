@@ -5,7 +5,7 @@ configs:
     users.anonymous.enabled: "true"
     # Timeout to discover if a new manifests version got published to the repository. 3 minutes by default.
     # Impacts how much time application controller queue processors have to clear the queue before the next reconciliation cycle.
-    timeout.reconciliation: 180s
+    timeout.reconciliation: 600s
   params:
     server.insecure: true
     application.namespaces: "*"
@@ -44,7 +44,7 @@ controller:
   podAnnotations:
     # Used to force a change in yaml template so a new version is deployed.
     # Useful when changing referenced configmaps.
-    custom-deploy-toggle: "0"
+    custom-deploy-toggle: "1"
   metrics:
     enabled: true
     serviceMonitor:
